@@ -70,6 +70,7 @@ async def test(ctx):
     turl = 'https://img2.quasarzone.com/qb_saleinfo/2023/04/04/3014e6510681ed0fa39c32dc8bfc8b4f.jpg'
     e = discord.Embed(title = "Title", description="Description")
     e.set_image(url = turl)
+    await ctx.channel.send(embed = e)
     
 try:
     bot.run(TOKEN)
