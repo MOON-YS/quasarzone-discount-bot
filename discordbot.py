@@ -2,6 +2,7 @@ from cmath import log
 from distutils.sysconfig import PREFIX
 import discord
 from dotenv import load_dotenv
+from discord.ext import commands
 import os
 import time
 from bs4 import BeautifulSoup
@@ -13,7 +14,7 @@ load_dotenv()
 PREFIX = os.environ['PREFIX']
 TOKEN = os.environ['TOKEN']
 
-bot = discord.Client()
+bot = commands.Bot(command_prefix = PREFIX,intents=discord.Intents.all())
 
 marker = 30
 url = "https://quasarzone.com/bbs/qb_saleinfo?page=1"
