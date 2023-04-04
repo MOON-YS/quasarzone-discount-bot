@@ -29,7 +29,7 @@ async def on_ready():
 
 @bot.command()
 async def init(ctx):
-    global channel
+    global channel, previous_top
     channel = ctx.channel
     init_response = requests.get(url)
     if init_response.status_code == 200:
@@ -42,7 +42,6 @@ async def init(ctx):
         info_link = soup.select('.subject-link')
 
         current_top = str(info_link[2]['href'])
-        
         if previous_top != current_top:
             for k in range(2, len(info_link)):
                 if info_link[k]['href'] == previous_top:
