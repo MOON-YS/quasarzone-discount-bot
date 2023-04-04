@@ -63,6 +63,7 @@ async def every_5min():
                 await channel.send(embed=embed)
             
             previous_top = current_top
+            marker = 0
         else :
             print("nothing to update")
     else : 
