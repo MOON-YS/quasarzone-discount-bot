@@ -4,7 +4,6 @@ import discord
 from dotenv import load_dotenv
 from discord.ext import commands
 import os
-import time
 from bs4 import BeautifulSoup
 import requests
 from discord.ext import tasks
@@ -47,8 +46,11 @@ async def every_5min():
                 if info_link[k]['href'] == previous_top:
                     marker = k-2
                     break
-        
+            
+                   
             for i in range(0, marker):
+                if marker == 30:
+                    break
                 s = [""]
                 s.append(info_category[i].contents[0])
                 s.append(info_price[i].contents[0])
