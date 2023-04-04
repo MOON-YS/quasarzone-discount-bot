@@ -48,7 +48,7 @@ async def init(ctx):
                 if info_link[k]['href'] == previous_top:
                     marker = k-2
                     break
-        
+            
             for i in range(0, marker):
                 s = [""]
                 s.append(info_category[i].contents[0])
@@ -56,6 +56,8 @@ async def init(ctx):
                 s.append(dUrl + info_link[i+2]['href'])
                 d = ''+'\n'.join(s)+''
                 embed = discord.Embed(title = info_title[i].contents[0], description=d)
+                if imgs[i]["src"] == '/themes/quasarzone/images/common/no_images.jpg':
+                    imgs[i]["src"] = dUrl + imgs[i]["src"]
                 embed.set_thumbnail(url = imgs[i]["src"])
                 await channel.send(embed=embed)
             
@@ -92,6 +94,8 @@ async def every_5min():
                 s.append(dUrl + info_link[i+2]['href'])
                 d = ''+'\n'.join(s)+''
                 embed = discord.Embed(title = info_title[i].contents[0], description=d)
+                if imgs[i]["src"] == '/themes/quasarzone/images/common/no_images.jpg':
+                    imgs[i]["src"] = dUrl + imgs[i]["src"]
                 embed.set_thumbnail(url = imgs[i]["src"])
                 await channel.send(embed=embed)
             
