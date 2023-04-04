@@ -28,45 +28,6 @@ channel = ''
 async def on_ready():
     print(f'Logged in as {bot.user}.')
 
-@bot.command()
-async def init(ctx):
-    global channel, previous_top, url, dUrl, marker
-    channel = ctx.channel
-    init_response = requests.get(url)
-    if init_response.status_code == 200:
-        html = init_response.text
-        soup = BeautifulSoup(html, 'html.parser')
-        imgs = soup.select('.maxImg')
-        info_price = soup.select('.text-orange')
-        info_category = soup.select('.category')
-        info_title = soup.select('.ellipsis-with-reply-cnt')
-        info_link = soup.select('.subject-link')
-
-        current_top = str(info_link[2]['href'])
-        if previous_top != current_top:
-            for k in range(2, len(info_link)):
-                if info_link[k]['href'] == previous_top:
-                    marker = k-2
-                    break
-            
-            for i in range(0, marker):
-                s = [""]
-                s.append(info_category[i].contents[0])
-                s.append(info_price[i].contents[0])
-                s.append(dUrl + info_link[i+2]['href'])
-                d = ''+'\n'.join(s)+''
-                embed = discord.Embed(title = info_title[i].contents[0], description=d)
-                if imgs[i]["src"] == '/themes/quasarzone/images/common/no_images.jpg':
-                    imgs[i]["src"] = dUrl + imgs[i]["src"]
-                embed.set_thumbnail(url = imgs[i]["src"])
-                await channel.send(embed=embed)
-            
-            previous_top = current_top
-        else :
-            print("nothing to update")
-    else : 
-        print(init_response.status_code)
-    
 @tasks.loop(seconds=300)
 async def every_5min():
     global channel, previous_top, url, dUrl, marker
@@ -104,7 +65,46 @@ async def every_5min():
             print("nothing to update")
     else : 
         print(init_response.status_code)
-every_5min.start()
+@bot.command()
+async def init(ctx):
+    global channel, previous_top, url, dUrl, marker
+    channel = ctx.channel
+    init_response = requests.get(url)
+    if init_response.status_code == 200:
+        html = init_response.text
+        soup = BeautifulSoup(html, 'html.parser')
+        imgs = soup.select('.maxImg')
+        info_price = soup.select('.text-orange')
+        info_category = soup.select('.category')
+        info_title = soup.select('.ellipsis-with-reply-cnt')
+        info_link = soup.select('.subject-link')
+
+        current_top = str(info_link[2]['href'])
+        if previous_top != current_top:
+            for k in range(2, len(info_link)):
+                if info_link[k]['href'] == previous_top:
+                    marker = k-2
+                    break
+            
+            for i in range(0, marker):
+                s = [""]
+                s.append(info_category[i].contents[0])
+                s.append(info_price[i].contents[0])
+                s.append(dUrl + info_link[i+2]['href'])
+                d = ''+'\n'.join(s)+''
+                embed = discord.Embed(title = info_title[i].contents[0], description=d)
+                if imgs[i]["src"] == '/themes/quasarzone/images/common/no_images.jpg':
+                    imgs[i]["src"] = dUrl + imgs[i]["src"]
+                embed.set_thumbnail(url = imgs[i]["src"])
+                await channel.send(embed=embed)
+            
+            previous_top = current_top
+            every_5min.start()
+        else :
+            print("nothing to update")
+    else : 
+        print(init_response.status_code)
+    
 @bot.command()
 async def test(ctx):
     turl = 'https://img2.quasarzone.com/qb_saleinfo/2023/04/04/3014e6510681ed0fa39c32dc8bfc8b4f.jpg'
