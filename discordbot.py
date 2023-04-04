@@ -111,7 +111,7 @@ async def test(ctx):
     e = discord.Embed(title = "Title", description="Description")
     e.set_thumbnail(url = turl)
     await ctx.channel.send(embed = e)
-    
+every_5min().start()
 try:
     bot.run(TOKEN)
 except discord.errors.LoginFailure as e:
