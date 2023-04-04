@@ -54,7 +54,7 @@ async def init(ctx):
                 s.append(info_price[i].contents[0])
                 s.append(dUrl + info_link[i+2]['href'])
                 d = ''+'\n'.join(s)+''
-                embed = discord.Embed(title = info_title[i].contents[0], description=s)
+                embed = discord.Embed(title = info_title[i].contents[0], description=d)
                 await channel.send(content=f'{imgs[i]["src"]}', embed=embed)
             
             previous_top = current_top
@@ -63,9 +63,10 @@ async def init(ctx):
     else : 
         print(init_response.status_code)
     
-        
-    
 
+@bot.command()
+async def test(ctx):
+    ctx.channel.send(file='https://img2.quasarzone.com/qb_saleinfo/2023/04/04/3014e6510681ed0fa39c32dc8bfc8b4f.jpg')
 try:
     bot.run(TOKEN)
 except discord.errors.LoginFailure as e:
