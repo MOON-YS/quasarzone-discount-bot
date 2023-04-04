@@ -56,7 +56,8 @@ async def init(ctx):
                 s.append(dUrl + info_link[i+2]['href'])
                 d = ''+'\n'.join(s)+''
                 embed = discord.Embed(title = info_title[i].contents[0], description=d)
-                await channel.send(content=f'{imgs[i]["src"]}', embed=embed)
+                e.set_thumbnail(url = imgs[i]["src"])
+                await channel.send(embed=embed)
             
             previous_top = current_top
         else :
