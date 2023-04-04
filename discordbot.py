@@ -51,13 +51,11 @@ async def init(ctx):
             for i in range(0, marker):
                 s = [""]
                 s.append(info_category[i].contents[0])
-                s.append('\n')
                 s.append(info_price[i].contents[0])
-                s.append('\n')
                 s.append(dUrl + info_link[i+2]['href'])
+                d = ''+'\n'.join(s)+''
                 embed = discord.Embed(title = info_title[i].contents[0], description=s)
-                #embed.set_image(imgs[i]["src"])
-                await channel.send(embed=embed)
+                await channel.send(contents=f'{imgs[i]["src"]}', embed=embed)
             
             previous_top = current_top
         else :
