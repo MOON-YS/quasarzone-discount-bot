@@ -29,7 +29,7 @@ async def on_ready():
 
 @bot.command()
 async def init(ctx):
-    global channel, previous_top
+    global channel, previous_top, url, dUrl
     channel = ctx.channel
     init_response = requests.get(url)
     if init_response.status_code == 200:
