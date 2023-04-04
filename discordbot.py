@@ -104,7 +104,7 @@ async def every_5min():
             print("nothing to update")
     else : 
         print(init_response.status_code)
-
+every_5min.start()
 @bot.command()
 async def test(ctx):
     turl = 'https://img2.quasarzone.com/qb_saleinfo/2023/04/04/3014e6510681ed0fa39c32dc8bfc8b4f.jpg'
@@ -112,7 +112,6 @@ async def test(ctx):
     e.set_thumbnail(url = turl)
     await ctx.channel.send(embed = e)
 
-every_5min().start()
 try:
     bot.run(TOKEN)
 except discord.errors.LoginFailure as e:
