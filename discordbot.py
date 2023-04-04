@@ -55,7 +55,7 @@ async def init(ctx):
                 s.append(info_price[i].contents[0])
                 s.append('\n')
                 s.append(dUrl + info_link[i+2]['href'])
-                embed = discord.Embed(title = info_title[i].contents[0])
+                embed = discord.Embed(title = info_title[i].contents[0], description=s)
                 #embed.set_image(imgs[i]["src"])
                 await channel.send(embed=embed)
             
