@@ -17,7 +17,7 @@ TOKEN = os.environ['TOKEN']
 bot = commands.Bot(command_prefix = PREFIX,intents=discord.Intents.all())
 
 marker = 30
-url = "https://quasarzone.com/bbs/qb_saleinfo?page=1"
+url = "https://quasarzone.com/bbs/qb_saleinfo"
 dUrl = 'https://quasarzone.com'
 
 previous_top = ''
@@ -30,7 +30,8 @@ async def on_ready():
 @tasks.loop(seconds=300)
 async def every_5min():
     global channel, previous_top, url, dUrl, marker
-    init_response = requests.get(url)
+    init_response = requests.get(url, headers={"User-Agent": "Mozilla/5.0"})
+
     if init_response.status_code == 200:
         html = init_response.text
         soup = BeautifulSoup(html, 'html.parser')
